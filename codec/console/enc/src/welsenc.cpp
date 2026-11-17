@@ -231,6 +231,12 @@ int ParseConfig (CReadConfig& cRdCfg, SSourcePicture* pSrcPic, SEncParamExt& pSv
 
       if (strTag[0].compare ("UsageType") == 0) {
         pSvcParam.iUsageType = (EUsageType)atoi (strTag[1].c_str());
+      } else if (strTag[0].compare ("EnableScreenContentDetection") == 0) {
+        pSvcParam.bEnableScreenContentDetection = atoi (strTag[1].c_str()) ? true : false;
+      } else if (strTag[0].compare ("EnablePalette") == 0) {
+        pSvcParam.bEnablePalette = atoi (strTag[1].c_str()) ? true : false;
+      } else if (strTag[0].compare ("EnableIntraBlockCopy") == 0) {
+        pSvcParam.bEnableIntraBlockCopy = atoi (strTag[1].c_str()) ? true : false;
       } else if (strTag[0].compare ("SimulcastAVC") == 0) {
         pSvcParam.bSimulcastAVC = atoi (strTag[1].c_str()) ? true : false;
       } else if (strTag[0].compare ("SourceWidth") == 0) {
@@ -402,6 +408,9 @@ void PrintHelp() {
   printf ("  -sw          the source width\n");
   printf ("  -sh          the source height\n");
   printf ("  -utype       usage type\n");
+  printf ("  -scdetect    auto-detect screen content per frame (default: 0)\n");
+  printf ("  -palette     enable palette preprocessing for screen blocks (default: 0)\n");
+  printf ("  -ibc         enable block-copy decisions for screen content (default: 0)\n");
   printf ("  -savc        simulcast avc\n");
   printf ("  -frms        Number of total frames to be encoded\n");
   printf ("  -frin        input frame rate\n");
@@ -458,6 +467,12 @@ int ParseCommandLine (int argc, char** argv, SSourcePicture* pSrcPic, SEncParamE
       sFileSet.strBsFile.assign (argv[n++]);
     else if (!strcmp (pCommand, "-utype") && (n < argc))
       pSvcParam.iUsageType = (EUsageType)atoi (argv[n++]);
+    else if (!strcmp (pCommand, "-scdetect") && (n < argc))
+      pSvcParam.bEnableScreenContentDetection = atoi (argv[n++]) ? true : false;
+    else if (!strcmp (pCommand, "-palette") && (n < argc))
+      pSvcParam.bEnablePalette = atoi (argv[n++]) ? true : false;
+    else if (!strcmp (pCommand, "-ibc") && (n < argc))
+      pSvcParam.bEnableIntraBlockCopy = atoi (argv[n++]) ? true : false;
 
     else if (!strcmp (pCommand, "-savc") && (n < argc))
       pSvcParam.bSimulcastAVC =  atoi (argv[n++]) ? true : false;

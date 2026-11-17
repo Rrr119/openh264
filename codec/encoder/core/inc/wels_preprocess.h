@@ -49,6 +49,7 @@
 #include "wels_const.h"
 #include "IWelsVP.h"
 #include "param_svc.h"
+#include "screen_content.h"
 
 namespace WelsEnc {
 
@@ -113,6 +114,8 @@ typedef struct SVAAFrameInfoExt_t: public SVAAFrameInfo {
   int32_t     iVaaBestRefFrameNum;
   uint8_t*    pVaaBestBlockStaticIdc;//pointer
   uint8_t*    pVaaBlockStaticIdc[16];//real memory,
+  SScreenContentFrameStats sScreenContentStats;
+  SScreenContentMbInfo*    pScreenContentMbInfo;
 } SVAAFrameInfoExt;
 
 class CWelsPreProcess {

@@ -20,6 +20,7 @@ ENCODER_UNITTEST_CPP_SRCS=\
 	$(ENCODER_UNITTEST_SRCDIR)/EncUT_ParameterSetStrategy.cpp\
 	$(ENCODER_UNITTEST_SRCDIR)/EncUT_Reconstruct.cpp\
 	$(ENCODER_UNITTEST_SRCDIR)/EncUT_Sample.cpp\
+	$(ENCODER_UNITTEST_SRCDIR)/EncUT_ScreenContent.cpp\
 	$(ENCODER_UNITTEST_SRCDIR)/EncUT_SliceBufferReallocate.cpp\
 	$(ENCODER_UNITTEST_SRCDIR)/EncUT_SVC_me.cpp\
 

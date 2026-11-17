@@ -21,6 +21,11 @@ Encoder Features
 - Dynamic changes to bit rate, frame rate, and resolution
 - Annex B byte stream output
 - YUV 4:2:0 planar input
+- Screen content detection and AVC-compatible palette/block-copy decisions
+
+Screen content coding is opt-in and remains compatible with standard AVC
+decoders. See [docs/ScreenContentCoding.md](docs/ScreenContentCoding.md) for
+the API, rate-control behavior, tests, and benchmark results.
 
 Decoder Features
 ----------------

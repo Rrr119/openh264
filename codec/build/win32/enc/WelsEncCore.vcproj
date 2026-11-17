@@ -430,6 +430,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\encoder\core\src\screen_content.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\encoder\core\src\set_mb_syn_cabac.cpp"
 				>
 			</File>
@@ -648,6 +652,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\encoder\core\inc\sample.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\encoder\core\inc\screen_content.h"
 				>
 			</File>
 			<File

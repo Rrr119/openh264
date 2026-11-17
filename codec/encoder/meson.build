@@ -15,6 +15,7 @@ cpp_sources = [
   'core/src/ratectl.cpp',
   'core/src/ref_list_mgr_svc.cpp',
   'core/src/sample.cpp',
+  'core/src/screen_content.cpp',
   'core/src/set_mb_syn_cabac.cpp',
   'core/src/set_mb_syn_cavlc.cpp',
   'core/src/slice_multi_threading.cpp',

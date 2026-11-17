@@ -1490,6 +1490,15 @@ int32_t RequestMemoryVaaScreen (SVAAFrameInfo* pVaa,  CMemoryAlign* pMa,  const 
   for (int32_t idx = 1; idx < iNumRef; idx++) {
     pVaaExt->pVaaBlockStaticIdc[idx] = pVaaExt->pVaaBlockStaticIdc[idx - 1] + iCountMax8x8BNum;
   }
+
+  const int32_t iCountMaxMbNum = (iCountMax8x8BNum + 3) >> 2;
+  pVaaExt->pScreenContentMbInfo = static_cast<SScreenContentMbInfo*> (pMa->WelsMallocz (
+                                      iCountMaxMbNum * sizeof (SScreenContentMbInfo), "pVaa->pScreenContentMbInfo"));
+  if (NULL == pVaaExt->pScreenContentMbInfo) {
+    pMa->WelsFree (pVaaExt->pVaaBlockStaticIdc[0], "pVaa->pVaaBlockStaticIdc[0]");
+    pVaaExt->pVaaBlockStaticIdc[0] = NULL;
+    return 1;
+  }
   return 0;
 }
 void ReleaseMemoryVaaScreen (SVAAFrameInfo* pVaa,  CMemoryAlign* pMa, const int32_t iNumRef) {
@@ -1500,6 +1509,10 @@ void ReleaseMemoryVaaScreen (SVAAFrameInfo* pVaa,  CMemoryAlign* pMa, const int3
     for (int32_t idx = 0; idx < iNumRef; idx++) {
       pVaaExt->pVaaBlockStaticIdc[idx] = NULL;
     }
+  }
+  if (pVaaExt && pMa && pVaaExt->pScreenContentMbInfo) {
+    pMa->WelsFree (pVaaExt->pScreenContentMbInfo, "pVaa->pScreenContentMbInfo");
+    pVaaExt->pScreenContentMbInfo = NULL;
   }
 }
 /*!
@@ -2670,9 +2683,19 @@ void PreprocessSliceCoding (sWelsEncCtx* pCtx) {
   bool bFastMode = (pCtx->pSvcParam->iComplexityMode == LOW_COMPLEXITY);
   SWelsFuncPtrList* pFuncList = pCtx->pFuncList;
   SLogContext* pLogCtx = & (pCtx->sLogCtx);
+  const SVAAFrameInfoExt* pVaaExt = static_cast<const SVAAFrameInfoExt*> (pCtx->pVaa);
+  const bool bScreenContentUsage = (pCtx->pSvcParam->iUsageType == SCREEN_CONTENT_REAL_TIME);
+  const bool bUseScreenContentTools = bScreenContentUsage &&
+                                      (!pCtx->pSvcParam->bEnableScreenContentDetection ||
+                                       pVaaExt->sScreenContentStats.bScreenContent);
+  if (bScreenContentUsage) {
+    WelsInitSCDPskipFunc (pFuncList, bUseScreenContentTools &&
+                          pCtx->pSvcParam->bEnableSceneChangeDetect &&
+                          pCtx->pSvcParam->iComplexityMode < HIGH_COMPLEXITY);
+  }
   /* function pointers conditional assignment under sWelsEncCtx, layer_mb_enc_rec (in stack) is exclusive */
   if ((pCtx->pSvcParam->iUsageType == CAMERA_VIDEO_REAL_TIME && bFastMode) ||
-      (pCtx->pSvcParam->iUsageType == SCREEN_CONTENT_REAL_TIME && P_SLICE == pCtx->eSliceType
+      (bUseScreenContentTools && P_SLICE == pCtx->eSliceType
        && bFastMode) //TODO: here is for sync with the origin code, consider the design again with more tests
      ) {
     SetFastCodingFunc (pFuncList);
@@ -2707,7 +2730,7 @@ void PreprocessSliceCoding (sWelsEncCtx* pCtx) {
   }
 
   //to init at each frame will be needed when dealing with hybrid content (camera+screen)
-  if (pCtx->pSvcParam->iUsageType == SCREEN_CONTENT_REAL_TIME) {
+  if (bUseScreenContentTools) {
     if (P_SLICE == pCtx->eSliceType) {
       //MD related func pointers
       pFuncList->pfInterFineMd = WelsMdInterFinePartitionVaaOnScreen;

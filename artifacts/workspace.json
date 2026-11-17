@@ -1,0 +1,17 @@
+{
+  "root": "/home/dev/feedback/uid23220",
+  "B": "/home/dev/feedback/uid23220",
+  "sha": "1bca62311e447fd9c39fc93de2c4b96cd5ce971c",
+  "wslDistro": "Ubuntu-26.04",
+  "source": {
+    "owner": "cisco",
+    "repo": "openh264",
+    "sha": "1bca62311e447fd9c39fc93de2c4b96cd5ce971c"
+  },
+  "fork": {
+    "owner": "Rrr119",
+    "repo": "openh264",
+    "cloneUrl": "https://github.com/Rrr119/openh264.git"
+  },
+  "at": "2026-11-17T05:28:16.139Z"
+}

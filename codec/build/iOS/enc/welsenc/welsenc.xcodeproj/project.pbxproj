@@ -35,6 +35,7 @@
 		4CE4471E18BC605C0017DF25 /* ratectl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CE446ED18BC605C0017DF25 /* ratectl.cpp */; };
 		4CE4471F18BC605C0017DF25 /* ref_list_mgr_svc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CE446EE18BC605C0017DF25 /* ref_list_mgr_svc.cpp */; };
 		4CE4472018BC605C0017DF25 /* sample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CE446EF18BC605C0017DF25 /* sample.cpp */; };
+		A1B2C3D4E5F60718293A4B5C /* screen_content.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5D /* screen_content.cpp */; };
 		4CE4472118BC605C0017DF25 /* set_mb_syn_cavlc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CE446F018BC605C0017DF25 /* set_mb_syn_cavlc.cpp */; };
 		4CE4472218BC605C0017DF25 /* slice_multi_threading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CE446F118BC605C0017DF25 /* slice_multi_threading.cpp */; };
 		4CE4472318BC605C0017DF25 /* svc_base_layer_md.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CE446F218BC605C0017DF25 /* svc_base_layer_md.cpp */; };
@@ -146,6 +147,7 @@
 		4CE446ED18BC605C0017DF25 /* ratectl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ratectl.cpp; sourceTree = "<group>"; };
 		4CE446EE18BC605C0017DF25 /* ref_list_mgr_svc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ref_list_mgr_svc.cpp; sourceTree = "<group>"; };
 		4CE446EF18BC605C0017DF25 /* sample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sample.cpp; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5D /* screen_content.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_content.cpp; sourceTree = "<group>"; };
 		4CE446F018BC605C0017DF25 /* set_mb_syn_cavlc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = set_mb_syn_cavlc.cpp; sourceTree = "<group>"; };
 		4CE446F118BC605C0017DF25 /* slice_multi_threading.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = slice_multi_threading.cpp; sourceTree = "<group>"; };
 		4CE446F218BC605C0017DF25 /* svc_base_layer_md.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svc_base_layer_md.cpp; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				4CE446ED18BC605C0017DF25 /* ratectl.cpp */,
 				4CE446EE18BC605C0017DF25 /* ref_list_mgr_svc.cpp */,
 				4CE446EF18BC605C0017DF25 /* sample.cpp */,
+				A1B2C3D4E5F60718293A4B5D /* screen_content.cpp */,
 				4CE446F018BC605C0017DF25 /* set_mb_syn_cavlc.cpp */,
 				4CE446F118BC605C0017DF25 /* slice_multi_threading.cpp */,
 				4CE446F218BC605C0017DF25 /* svc_base_layer_md.cpp */,
@@ -441,6 +444,7 @@
 				4CE4472818BC605C0017DF25 /* svc_motion_estimate.cpp in Sources */,
 				4CE4471018BC605C0017DF25 /* decode_mb_aux.cpp in Sources */,
 				4CE4472018BC605C0017DF25 /* sample.cpp in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* screen_content.cpp in Sources */,
 				6CA38DA31991CACE003EAAE0 /* svc_motion_estimation.S in Sources */,
 				0DD32A9C1B4A4E8F009181A1 /* wels_task_encoder.cpp in Sources */,
 				4CE4471318BC605C0017DF25 /* encoder_data_tables.cpp in Sources */,

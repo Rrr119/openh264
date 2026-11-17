@@ -19,6 +19,7 @@ ENCODER_CPP_SRCS=\
 	$(ENCODER_SRCDIR)/core/src/ratectl.cpp\
 	$(ENCODER_SRCDIR)/core/src/ref_list_mgr_svc.cpp\
 	$(ENCODER_SRCDIR)/core/src/sample.cpp\
+	$(ENCODER_SRCDIR)/core/src/screen_content.cpp\
 	$(ENCODER_SRCDIR)/core/src/set_mb_syn_cabac.cpp\
 	$(ENCODER_SRCDIR)/core/src/set_mb_syn_cavlc.cpp\
 	$(ENCODER_SRCDIR)/core/src/slice_multi_threading.cpp\

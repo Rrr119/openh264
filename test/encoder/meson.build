@@ -16,6 +16,7 @@ test_sources = [
   'EncUT_ParameterSetStrategy.cpp',
   'EncUT_Reconstruct.cpp',
   'EncUT_Sample.cpp',
+  'EncUT_ScreenContent.cpp',
   'EncUT_SVC_me.cpp',
   'EncUT_SliceBufferReallocate.cpp',
 ]

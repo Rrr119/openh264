@@ -294,6 +294,38 @@ int32_t CWelsPreProcess::AnalyzeSpatialPic (sWelsEncCtx* pCtx, const int32_t kiD
     if (bNeededMbAq) {
       AdaptiveQuantCalculation (pCtx->pVaa, pCurPic, pRefPic);
     }
+
+    SVAAFrameInfoExt* pVaaExt = static_cast<SVAAFrameInfoExt*> (pCtx->pVaa);
+    if (pSvcParam->bEnableScreenContentDetection || pSvcParam->bEnablePalette ||
+        pSvcParam->bEnableIntraBlockCopy) {
+      const bool bHasReference = (pCtx->eSliceType == P_SLICE) && (pCtx->iNumRef0 > 0);
+      const int32_t iMbWidth = (pCurPic->iWidthInPixel + 15) >> 4;
+      const int32_t iMbHeight = (pCurPic->iHeightInPixel + 15) >> 4;
+      WelsScreenContentAnalyzeFrame (pCurPic->pData[0], pCurPic->pData[1], pCurPic->pData[2],
+                                     pCurPic->iLineSize[0], pCurPic->iLineSize[1],
+                                     bHasReference ? pRefPic->pData[0] : NULL,
+                                     bHasReference ? pRefPic->pData[1] : NULL,
+                                     bHasReference ? pRefPic->pData[2] : NULL,
+                                     pRefPic->iLineSize[0], pRefPic->iLineSize[1], bHasReference,
+                                     pCurPic->iWidthInPixel, pCurPic->iHeightInPixel,
+                                     pSvcParam->bEnablePalette,
+                                     pSvcParam->bEnableIntraBlockCopy,
+                                     !pSvcParam->bEnableScreenContentDetection,
+                                     &pVaaExt->sScreenContentStats,
+                                     pVaaExt->pScreenContentMbInfo, iMbWidth * iMbHeight);
+      WelsLog (& (pCtx->sLogCtx), WELS_LOG_DEBUG,
+               "ScreenContent: did=%d frame=%d type=%s score=%.3f lowColorMb=%u paletteMb=%u staticMb=%u copyMb=%u",
+               kiDidx, pParamInternal->iFrameIndex,
+               pVaaExt->sScreenContentStats.bScreenContent ? "screen" : "camera",
+               pVaaExt->sScreenContentStats.fScreenContentScore,
+               pVaaExt->sScreenContentStats.uiLowColorMbCount,
+               pVaaExt->sScreenContentStats.uiPaletteMbCount,
+               pVaaExt->sScreenContentStats.uiStaticMbCount,
+               pVaaExt->sScreenContentStats.uiCopyMbCount);
+    } else {
+      memset (&pVaaExt->sScreenContentStats, 0, sizeof (pVaaExt->sScreenContentStats));
+      pVaaExt->sScreenContentStats.bScreenContent = true;
+    }
   } else {
     SPicture* pRefPic = GetBestRefPic (kiDidx, iRefTemporalIdx);
     SPicture* pLastPic = m_pLastSpatialPicture[kiDidx][0];

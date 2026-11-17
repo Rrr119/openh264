@@ -595,6 +595,10 @@ typedef struct TagEncParamExt {
   bool    bPsnrY;                      ///< get Y PSNR stats for the whole video sequence
   bool    bPsnrU;                      ///< get U PSNR stats for the whole video sequence
   bool    bPsnrV;                      ///< get V PSNR stats for the whole video sequence
+
+  bool    bEnableScreenContentDetection; ///< classify each frame as camera or screen content when screen tools are available
+  bool    bEnablePalette;                ///< enable palette-based low-color block preprocessing
+  bool    bEnableIntraBlockCopy;         ///< enable AVC-compatible block-copy decisions for screen content
 } SEncParamExt;
 
 /**

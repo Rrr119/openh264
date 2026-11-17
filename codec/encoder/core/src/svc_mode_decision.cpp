@@ -326,6 +326,13 @@ bool JudgeStaticSkip (sWelsEncCtx* pEncCtx, SMB* pCurMb, SMbCache* pMbCache, SWe
   const int32_t kiMbY = pCurMb->iMbY;
 
   bool bTryStaticSkip = IsMbCollocatedStatic (pWelsMd->iBlock8x8StaticIdc);
+  const SVAAFrameInfoExt* pVaaExt = static_cast<const SVAAFrameInfoExt*> (pEncCtx->pVaa);
+  if (pEncCtx->pSvcParam->bEnableIntraBlockCopy && pVaaExt != NULL &&
+      pVaaExt->pScreenContentMbInfo != NULL &&
+      pCurMb->iMbXY < static_cast<int32_t> (pVaaExt->sScreenContentStats.uiMbCount) &&
+      (pVaaExt->pScreenContentMbInfo[pCurMb->iMbXY].uiFlags & SC_MB_STATIC)) {
+    bTryStaticSkip = true;
+  }
   if (bTryStaticSkip) {
     int32_t iStrideUV, iOffsetUV;
     SWelsFuncPtrList* pFunc = pEncCtx->pFuncList;

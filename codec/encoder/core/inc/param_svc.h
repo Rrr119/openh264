@@ -183,6 +183,9 @@ typedef struct TagWelsSvcCodingParam: SEncParamExt {
     param.bPsnrY = false;
     param.bPsnrU = false;
     param.bPsnrV = false;
+    param.bEnableScreenContentDetection = false;
+    param.bEnablePalette = false;
+    param.bEnableIntraBlockCopy = false;
     for (int32_t iLayer = 0; iLayer < MAX_SPATIAL_LAYER_NUM; iLayer++) {
       param.sSpatialLayers[iLayer].uiProfileIdc = PRO_UNKNOWN;
       param.sSpatialLayers[iLayer].uiLevelIdc = LEVEL_UNKNOWN;
@@ -238,6 +241,15 @@ typedef struct TagWelsSvcCodingParam: SEncParamExt {
     fMaxFrameRate  = WELS_CLIP3 (pCodingParam.fMaxFrameRate, MIN_FRAME_RATE, MAX_FRAME_RATE);
     iTargetBitrate = pCodingParam.iTargetBitrate;
     iUsageType  = pCodingParam.iUsageType;
+    bEnableScreenContentDetection = false;
+    bEnablePalette = false;
+    bEnableIntraBlockCopy = false;
+    if (iUsageType == INPUT_CONTENT_TYPE_ALL) {
+      iUsageType = SCREEN_CONTENT_REAL_TIME;
+      bEnableScreenContentDetection = true;
+      bEnablePalette = false;
+      bEnableIntraBlockCopy = true;
+    }
     iPicWidth   = pCodingParam.iPicWidth;
     iPicHeight  = pCodingParam.iPicHeight;
 
@@ -351,6 +363,19 @@ typedef struct TagWelsSvcCodingParam: SEncParamExt {
     bPsnrY = pCodingParam.bPsnrY;
     bPsnrU = pCodingParam.bPsnrU;
     bPsnrV = pCodingParam.bPsnrV;
+    bEnableScreenContentDetection = pCodingParam.bEnableScreenContentDetection;
+    bEnablePalette = pCodingParam.bEnablePalette;
+    bEnableIntraBlockCopy = pCodingParam.bEnableIntraBlockCopy;
+    if (iUsageType == INPUT_CONTENT_TYPE_ALL) {
+      iUsageType = SCREEN_CONTENT_REAL_TIME;
+      bEnableScreenContentDetection = true;
+      bEnablePalette = pCodingParam.bEnablePalette;
+      bEnableIntraBlockCopy = true;
+    } else if (iUsageType != SCREEN_CONTENT_REAL_TIME) {
+      bEnableScreenContentDetection = false;
+      bEnablePalette = false;
+      bEnableIntraBlockCopy = false;
+    }
     if (iUsageType == SCREEN_CONTENT_REAL_TIME && !bIsLosslessLink && bEnableLongTermReference) {
       bEnableLongTermReference = false;
     }
